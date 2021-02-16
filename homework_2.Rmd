@@ -1,0 +1,83 @@
+---
+title: "DS 613 Homework 2"
+author: "Xuehao Wang"
+date: "02/15/2021"
+output:
+  word_document: default
+  html_notebook: default
+---
+
+1) Enter and run USArrests. What type of information is shown in the data table USArrests?  (Three or four sentences)
+```{r}
+USArrests
+```
+There are five column in the table, first one is state name, which is character, the rest four are all type of double and integer.
+
+2) Use and show R coding that features a map function to show maximum values for all variables of the USArerests data frame.  Which State has the largest number of Assaults according to the USAressts data frame?
+```{r}
+library(tidyverse)
+library(dplyr)
+
+map_dbl(USArrests, max)
+
+USArrests %>% 
+  filter(Assault == 337) #North Carolina has the largest number of Assaults according
+```
+
+3) Install the nycflights13 package: install.packages("nycflights13") , call the following library:  library(nycflights13), and then enter flights (this will produce the flights data table)
+```{r}
+library(nycflights13)
+flights
+```
+
+4) Use and show R code that will indicate how many rows and how many columns the flights data has.  Review and revisit your notes from STAT 412/612.  Describe a tibble (two or three sentences). Now use and show R code that verifies that flights is a tibble
+```{r}
+nrow(flights)
+ncol(flights)
+class(flights)
+```
+tibble is data frame in R programming language, it contains different type of variable in the tibble
+
+5) Now Use and show R code (featuring a map function) that will output the type of each column of the flights tibble.
+```{r}
+map(flights, typeof)
+```
+
+6)  Use and show R coding that features usage of a map function to find the slope and the intercept of models for the different levels of the Species variable of the iris data frame.  For each model, Sepal.Width predicts Sepal.Length.
+```{r}
+iris %>% 
+  split(.$Species) %>% 
+  map(~lm(Sepal.Length ~ Sepal.Width, data = .))
+```
+
+7)
+```{r}
+V <- list(12, 22, 27, 31.5, NA, 39, "east")
+V
+```
+
+For the given list above;
+7a) Use and show R code to find the length of the list
+```{r}
+length(V)
+```
+
+7b) Use and show R code that will extract the missing value
+```{r}
+V[is.na(V)]
+```
+
+7c) Use and show R code that will extract the third object
+```{r}
+V[3]
+```
+
+7d) Use and show R code that will extract the character string and the minimum number.
+```{r}
+V[c(1,7)]
+```
+
+7e) Use one line of code to show that the seventh object is a character object.
+```{r}
+str(V[[7]])
+```
